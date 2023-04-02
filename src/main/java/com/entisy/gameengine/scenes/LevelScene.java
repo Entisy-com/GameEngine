@@ -1,4 +1,4 @@
-package com.entisy.gameengine.Scenes;
+package com.entisy.gameengine.scenes;
 
 import com.entisy.gameengine.Scene;
 import com.entisy.gameengine.Window;

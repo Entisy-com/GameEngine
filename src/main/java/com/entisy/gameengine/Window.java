@@ -1,7 +1,7 @@
 package com.entisy.gameengine;
 
-import com.entisy.gameengine.Scenes.LevelEditorScene;
-import com.entisy.gameengine.Scenes.LevelScene;
+
+import com.entisy.gameengine.scenes.*;
 import com.entisy.gameengine.util.Time;
 import org.joml.Vector2i;
 import org.lwjgl.Version;
@@ -24,10 +24,10 @@ public class Window {
 
     private long glfwWindow;
 
-    public float r =1.0f,g =1.0f,b =1.0f,a =1.0f;
+    public float r = 1.0f, g = 1.0f, b = 1.0f, a = 1.0f;
 
     private static Scene currentScene;
-    
+
     private Window() {
     }
 
@@ -39,7 +39,7 @@ public class Window {
     }
 
     public static void changeScene(int scene) {
-        switch (scene){
+        switch (scene) {
             case 0 -> {
                 currentScene = new LevelEditorScene();
                 currentScene.init();
@@ -98,8 +98,8 @@ public class Window {
     }
 
     public void loop() {
-        float beginTime= Time.getTime();
-        float endTime = Time.getTime();
+        float beginTime = Time.getTime();
+        float endTime;
         float dt = -1.0f;
         while (!glfwWindowShouldClose(glfwWindow)) {
             glfwPollEvents();
