@@ -49,7 +49,7 @@ public class Window {
                 currentScene.init();
             }
             default -> {
-                assert false : "Unkown scene '" + scene + "'!";
+                assert false : "Unknown scene '" + scene + "'!";
             }
         }
     }
@@ -81,9 +81,13 @@ public class Window {
         if (glfwWindow == NULL) throw new IllegalStateException("Failed to create GLFW window!");
 
         glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePosCallback);
+        logger.info("Loaded CursorPositionCallback!");
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
+        logger.info("Loaded MouseButtonCallback!");
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
+        logger.info("Loaded ScrollCallback!");
         glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
+        logger.info("Loaded KeyCallback!");
 
         glfwMakeContextCurrent(glfwWindow);
         glfwSwapInterval(1);
