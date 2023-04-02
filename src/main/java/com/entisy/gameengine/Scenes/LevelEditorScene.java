@@ -2,7 +2,9 @@ package com.entisy.gameengine.Scenes;
 
 import com.entisy.gameengine.Camera;
 import com.entisy.gameengine.Scene;
+import com.entisy.gameengine.Window;
 import com.entisy.gameengine.renderer.Shader;
+import com.entisy.gameengine.util.Time;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 
@@ -24,7 +26,7 @@ public class LevelEditorScene extends Scene {
             // positions         // colors
             100.0f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,  // bottom right 0
             -0.5f, 100.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,  // top left 1
-            100.0f, 100.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,  // top right 2
+            100.0f, 100.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,  // top right 2
             -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f  // bottom left 3
     };
 
@@ -79,6 +81,7 @@ public class LevelEditorScene extends Scene {
         defaultShader.use();
         defaultShader.uploadMat4f("uProjection", camera.getProjectionMatrix());
         defaultShader.uploadMat4f("uView", camera.getViewMatrix());
+        defaultShader.uploadFloat("uTime", Time.getTime());
         glBindVertexArray(vaoID);
 
         glEnableVertexAttribArray(0);
