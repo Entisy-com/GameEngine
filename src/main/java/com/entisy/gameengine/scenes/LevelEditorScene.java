@@ -56,7 +56,7 @@ public class LevelEditorScene extends Scene {
         this.addGameObjectToScene(this.testObj);
 
         this.camera = new Camera(new Vector2f());
-        defaultShader = new Shader(ResourceLocation.shader("main").getId());
+        defaultShader = new Shader(ResourceLocation.shader("main").pointsTo());
         defaultShader.compile();
         texture = new Texture(ResourceLocation.texture("player").getId());
 

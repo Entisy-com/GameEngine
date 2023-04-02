@@ -25,8 +25,20 @@ public class ResourceLocation {
         return String.format("%s:%s", namespace, id);
     }
 
+    public String pointsToImage() {
+        return String.format("src/main/resources/%s.png", this.id);
+    }
+
+    public String pointsToShader() {
+        return String.format("src/main/resources/%s.glsl", this.id);
+    }
+
+    public String pointsTo() {
+        return String.format("src/main/resources/%s", this.id);
+    }
+
     public static ResourceLocation shader(String fileName) {
-        return new ResourceLocation("ge", String.format("src/main/resources/shader/%s.glsl", fileName));
+        return new ResourceLocation("ge", String.format("shader/%s.glsl", fileName));
     }
 
     public static ResourceLocation texture(String x) {
