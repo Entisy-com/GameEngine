@@ -2,7 +2,11 @@ package com.entisy.gameengine;
 
 public abstract class Scene {
 
-    public Scene(){};
+
+    protected Camera camera;
+    public Scene(){
+
+    };
 
 
     public abstract void init();

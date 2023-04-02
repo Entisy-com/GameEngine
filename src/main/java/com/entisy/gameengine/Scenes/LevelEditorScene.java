@@ -1,7 +1,9 @@
 package com.entisy.gameengine.Scenes;
 
+import com.entisy.gameengine.Camera;
 import com.entisy.gameengine.Scene;
 import com.entisy.gameengine.renderer.Shader;
+import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
@@ -20,10 +22,10 @@ public class LevelEditorScene extends Scene {
 
     private float[] vertexArray = {
             // positions         // colors
-            0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,  // bottom right 0
-            -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,  // top left 1
-            0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,  // top right 2
-            -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f  // bottom left 3
+            50.0f, -50.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,  // bottom right 0
+            -50.0f, 50.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,  // top left 1
+            50.0f, 50.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,  // top right 2
+            -50.0f, -50.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f  // bottom left 3
     };
 
     private int vaoID, vboID, eboID;
@@ -38,6 +40,7 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void init() {
+        this.camera = new Camera(new Vector2f());
         defaultShader = new Shader("src/main/resources/shader/main.glsl");
         defaultShader.compile();
 
@@ -74,6 +77,8 @@ public class LevelEditorScene extends Scene {
     @Override
     public void update(float dt) {
         defaultShader.use();
+        defaultShader.uploadMat4f("uProjection", camera.getProjectionMatrix());
+        defaultShader.uploadMat4f("uView", camera.getViewMatrix());
         glBindVertexArray(vaoID);
 
         glEnableVertexAttribArray(0);
