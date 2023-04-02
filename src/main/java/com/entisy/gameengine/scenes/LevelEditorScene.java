@@ -2,8 +2,11 @@ package com.entisy.gameengine.scenes;
 
 import com.entisy.gameengine.Camera;
 import com.entisy.gameengine.Scene;
+import com.entisy.gameengine.components.FontRenderer;
+import com.entisy.gameengine.components.SpriteRenderer;
 import com.entisy.gameengine.renderer.Shader;
 import com.entisy.gameengine.renderer.Texture;
+import com.entisy.gameengine.util.GameObject;
 import com.entisy.gameengine.util.PlayerController;
 import com.entisy.gameengine.util.ResourceLocation;
 import com.entisy.gameengine.util.Time;
@@ -25,6 +28,8 @@ public class LevelEditorScene extends Scene {
     private Shader defaultShader;
     private Texture texture;
 
+    GameObject testObj;
+
     private float[] vertexArray = {
             // positions         // colors
             100.0f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0, 1,// bottom right 0
@@ -45,6 +50,11 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void init() {
+        this.testObj = new GameObject("test object");
+        this.testObj.addComponent(new SpriteRenderer());
+        this.testObj.addComponent(new FontRenderer());
+        this.addGameObjectToScene(this.testObj);
+
         this.camera = new Camera(new Vector2f());
         defaultShader = new Shader(ResourceLocation.shader("main").getId());
         defaultShader.compile();
@@ -112,6 +122,10 @@ public class LevelEditorScene extends Scene {
         texture.unbind();
         // move
         PlayerController.get().update(150, this.camera, dt);
+
+        for (var gameObject : gameObjects) {
+            gameObject.update(dt);
+        }
     }
 
 
