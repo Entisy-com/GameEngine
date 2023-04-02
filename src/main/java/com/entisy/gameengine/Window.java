@@ -1,5 +1,8 @@
 package com.entisy.gameengine;
 
+import com.entisy.gameengine.Scenes.LevelEditorScene;
+import com.entisy.gameengine.Scenes.LevelScene;
+import com.entisy.gameengine.util.Time;
 import org.joml.Vector2i;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -17,9 +20,13 @@ public class Window {
     private static Window instance = null;
     private final int width = 1920, height = 1080;
     private final String title = "GameEngine";
-    private static final Logger logger = LoggerFactory.getLogger(Window.class);
+    private final Logger logger = LoggerFactory.getLogger(Window.class);
 
     private long glfwWindow;
+
+    public float r =1.0f,g =1.0f,b =1.0f,a =1.0f;
+
+    private static Scene currentScene;
     
     private Window() {
     }
@@ -29,6 +36,22 @@ public class Window {
             Window.instance = new Window();
         }
         return Window.instance;
+    }
+
+    public static void changeScene(int scene) {
+        switch (scene){
+            case 0 -> {
+                currentScene = new LevelEditorScene();
+                currentScene.init();
+            }
+            case 1 -> {
+                currentScene = new LevelScene();
+                currentScene.init();
+            }
+            default -> {
+                assert false : "Unkown scene '" + scene + "'!";
+            }
+        }
     }
 
     public void run() {
@@ -67,19 +90,27 @@ public class Window {
         glfwShowWindow(glfwWindow);
 
         GL.createCapabilities();
+        Window.changeScene(0);
     }
 
     public void loop() {
+        float beginTime= Time.getTime();
+        float endTime = Time.getTime();
+        float dt = -1.0f;
         while (!glfwWindowShouldClose(glfwWindow)) {
             glfwPollEvents();
-            glClearColor(1, 0.4f, 0, 1);
+            glClearColor(r, g, b, a);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            if(KeyListener.isKeyPressed(GLFW_KEY_SPACE)) {
-                logger.info("Space pressed!");
+            if (dt >= 0) {
+                currentScene.update(dt);
             }
 
+
             glfwSwapBuffers(glfwWindow);
+            endTime = Time.getTime();
+            dt = endTime - beginTime;
+            beginTime = endTime;
         }
     }
 
@@ -89,5 +120,9 @@ public class Window {
 
     public String getTitle() {
         return title;
+    }
+
+    public Logger getLogger() {
+        return logger;
     }
 }
