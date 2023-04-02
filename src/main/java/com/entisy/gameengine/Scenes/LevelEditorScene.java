@@ -22,10 +22,10 @@ public class LevelEditorScene extends Scene {
 
     private float[] vertexArray = {
             // positions         // colors
-            50.0f, -50.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,  // bottom right 0
-            -50.0f, 50.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,  // top left 1
-            50.0f, 50.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,  // top right 2
-            -50.0f, -50.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f  // bottom left 3
+            100.0f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,  // bottom right 0
+            -0.5f, 100.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,  // top left 1
+            100.0f, 100.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,  // top right 2
+            -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f  // bottom left 3
     };
 
     private int vaoID, vboID, eboID;
