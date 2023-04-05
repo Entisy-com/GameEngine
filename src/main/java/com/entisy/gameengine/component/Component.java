@@ -1,4 +1,6 @@
-package com.entisy.gameengine.util;
+package com.entisy.gameengine.component;
+
+import com.entisy.gameengine.util.GameObject;
 
 public abstract class Component {
     public GameObject gameObject = null;

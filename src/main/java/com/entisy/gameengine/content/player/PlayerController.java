@@ -1,6 +1,6 @@
-package com.entisy.gameengine.util;
+package com.entisy.gameengine.content.player;
 
-import com.entisy.gameengine.Camera;
+import com.entisy.gameengine.util.Camera;
 import com.entisy.gameengine.KeyListener;
 
 import java.awt.event.KeyEvent;
@@ -22,7 +22,6 @@ public class PlayerController {
     private void move(float speed, Camera camera, float dt) {
         if (KeyListener.isKeyPressed(KeyEvent.VK_A) && KeyListener.isKeyPressed(KeyEvent.VK_D) ||
                 KeyListener.isKeyPressed(KeyEvent.VK_W) && KeyListener.isKeyPressed(KeyEvent.VK_S)) {
-            System.out.println();
         }
 
         else if (KeyListener.isKeyPressed(KeyEvent.VK_W) && KeyListener.isKeyPressed(KeyEvent.VK_A)) {

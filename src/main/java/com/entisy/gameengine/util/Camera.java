@@ -1,16 +1,15 @@
-package com.entisy.gameengine;
+package com.entisy.gameengine.util;
 
 import org.joml.Matrix4f;
-import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class Camera {
 
     private Matrix4f projectionMatrix, viewMatrix;
-    public Vector2f position;
+    public Vector3f position;
 
-    public Camera(Vector2f position) {
-        this.position = position;
+    public Camera(float posX, float posY, float posZ) {
+        this.position = new Vector3f(posX, posY, posZ);
         this.projectionMatrix = new Matrix4f();
         this.viewMatrix = new Matrix4f();
         adjustProjection();

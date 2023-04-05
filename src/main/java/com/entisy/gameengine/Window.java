@@ -1,7 +1,8 @@
 package com.entisy.gameengine;
 
 
-import com.entisy.gameengine.scenes.*;
+import com.entisy.gameengine.scene.Scene;
+import com.entisy.gameengine.scene.scenes.*;
 import com.entisy.gameengine.util.Time;
 import org.joml.Vector2i;
 import org.lwjgl.Version;
@@ -26,9 +27,13 @@ public class Window {
 
     public float r = 1.0f, g = 1.0f, b = 1.0f, a = 1.0f;
 
-    private static Scene currentScene;
+    private Scene currentScene;
 
     private Window() {
+    }
+
+    public static Scene getCurrentScene() {
+        return get().currentScene;
     }
 
     public static Window get() {
@@ -41,14 +46,14 @@ public class Window {
     public static void changeScene(int scene) {
         switch (scene) {
             case 0 -> {
-                currentScene = new LevelEditorScene();
-                currentScene.init();
-                currentScene.start();
+                get().currentScene = new LevelEditorScene();
+                get().currentScene.init();
+                get().currentScene.start();
             }
             case 1 -> {
-                currentScene = new LevelScene();
-                currentScene.init();
-                currentScene.start();
+                get().currentScene = new LevelScene();
+                get().currentScene.init();
+                get().currentScene.start();
             }
             default -> {
                 assert false : "Unknown scene '" + scene + "'!";

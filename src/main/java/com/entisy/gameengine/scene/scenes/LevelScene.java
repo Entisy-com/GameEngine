@@ -1,6 +1,6 @@
-package com.entisy.gameengine.scenes;
+package com.entisy.gameengine.scene.scenes;
 
-import com.entisy.gameengine.Scene;
+import com.entisy.gameengine.scene.Scene;
 import com.entisy.gameengine.Window;
 
 public class LevelScene extends Scene {

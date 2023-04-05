@@ -1,7 +1,7 @@
-package com.entisy.gameengine.components;
+package com.entisy.gameengine.component.components;
 
 import com.entisy.gameengine.Window;
-import com.entisy.gameengine.util.Component;
+import com.entisy.gameengine.component.Component;
 
 public class FontRenderer extends Component {
     @Override
