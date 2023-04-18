@@ -1,6 +1,5 @@
-package com.entisy.gameengine.renderer;
+package com.entisy.gameengine.render;
 
-import com.entisy.gameengine.Window;
 import org.lwjgl.BufferUtils;
 
 import java.nio.ByteBuffer;
@@ -13,11 +12,12 @@ import static org.lwjgl.stb.STBImage.*;
 public class Texture {
     private String filepath;
     private int texID;
+
     public Texture(String filepath) {
         this.filepath = filepath;
 
-        texID = glGenTextures();
-        glBindTexture(GL_TEXTURE_2D, texID);
+        this.texID = glGenTextures();
+        glBindTexture(GL_TEXTURE_2D, this.texID);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -25,10 +25,11 @@ public class Texture {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-        IntBuffer width = BufferUtils.createIntBuffer(1);
-        IntBuffer height = BufferUtils.createIntBuffer(1);
-        IntBuffer channels = BufferUtils.createIntBuffer(1);
-        ByteBuffer image = stbi_load(filepath, width, height, channels, 0);
+        var width = BufferUtils.createIntBuffer(1);
+        var height = BufferUtils.createIntBuffer(1);
+        var channels = BufferUtils.createIntBuffer(1);
+        stbi_set_flip_vertically_on_load(true);
+        var image = stbi_load(this.filepath, width, height, channels, 0);
 
         if (image != null) {
             if (channels.get(0) == 3) {

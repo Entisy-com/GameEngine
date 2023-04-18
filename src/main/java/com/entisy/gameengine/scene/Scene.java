@@ -1,6 +1,6 @@
 package com.entisy.gameengine.scene;
 
-import com.entisy.gameengine.renderer.Renderer;
+import com.entisy.gameengine.render.Renderer;
 import com.entisy.gameengine.util.Camera;
 import com.entisy.gameengine.util.GameObject;
 
@@ -19,24 +19,24 @@ public abstract class Scene {
     };
 
     public Camera getCamera() {
-        return camera;
+        return this.camera;
     }
 
     public void start() {
-        for (var gameObject : gameObjects) {
+        for (var gameObject : this.gameObjects) {
             gameObject.start();
-            renderer.add(gameObject);
+            this.renderer.add(gameObject);
         }
-        isRunning = true;
+        this.isRunning = true;
     }
 
     public void addGameObjectToScene(GameObject gameObject) {
-        if (!isRunning) {
-            gameObjects.add(gameObject);
+        if (!this.isRunning) {
+            this.gameObjects.add(gameObject);
         } else {
-            gameObjects.add(gameObject);
+            this.gameObjects.add(gameObject);
             gameObject.start();
-            renderer.add(gameObject);
+            this.renderer.add(gameObject);
         }
     }
 

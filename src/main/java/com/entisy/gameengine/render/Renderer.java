@@ -1,4 +1,4 @@
-package com.entisy.gameengine.renderer;
+package com.entisy.gameengine.render;
 
 import com.entisy.gameengine.component.components.SpriteRenderer;
 import com.entisy.gameengine.util.GameObject;
@@ -15,15 +15,15 @@ public class Renderer {
     }
 
     public void add(GameObject gameObject) {
-        SpriteRenderer renderer = gameObject.getComponent(SpriteRenderer.class);
+        var renderer = gameObject.getComponent(SpriteRenderer.class);
         if (renderer != null)
-            add(renderer);
+            this.add(renderer);
     }
 
     private void add(SpriteRenderer renderer) {
-        boolean added = false;
+        var added = false;
 
-        for (RenderBatch batch : batches)
+        for (var batch : batches)
             if (batch.hasRoom()) {
                 batch.addSprite(renderer);
                 added = true;
@@ -33,13 +33,13 @@ public class Renderer {
         if (!added) {
             var batch = new RenderBatch(MAX_BATCH_SIZE);
             batch.start();
-            batches.add(batch);
+            this.batches.add(batch);
             batch.addSprite(renderer);
         }
     }
 
     public void render() {
-        for (RenderBatch batch : batches)
+        for (var batch : batches)
             batch.render();
     }
 }

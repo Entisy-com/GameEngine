@@ -3,7 +3,6 @@ package com.entisy.gameengine;
 
 import com.entisy.gameengine.scene.Scene;
 import com.entisy.gameengine.scene.scenes.*;
-import com.entisy.gameengine.util.Time;
 import org.joml.Vector2i;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -33,7 +32,7 @@ public class Window {
     }
 
     public static Scene getCurrentScene() {
-        return get().currentScene;
+        return Window.get().currentScene;
     }
 
     public static Window get() {
@@ -46,14 +45,14 @@ public class Window {
     public static void changeScene(int scene) {
         switch (scene) {
             case 0 -> {
-                get().currentScene = new LevelEditorScene();
-                get().currentScene.init();
-                get().currentScene.start();
+                Window.get().currentScene = new LevelEditorScene();
+                Window.get().currentScene.init();
+                Window.get().currentScene.start();
             }
             case 1 -> {
-                get().currentScene = new LevelScene();
-                get().currentScene.init();
-                get().currentScene.start();
+                Window.get().currentScene = new LevelScene();
+                Window.get().currentScene.init();
+                Window.get().currentScene.start();
             }
             default -> {
                 assert false : "Unknown scene '" + scene + "'!";
@@ -62,10 +61,10 @@ public class Window {
     }
 
     public void run() {
-        logger.info(String.format("Loaded LWJGL v%s!", Version.getVersion()));
+        this.logger.info(String.format("Loaded LWJGL v%s!", Version.getVersion()));
 
-        init();
-        loop();
+        this.init();
+        this.loop();
 
         glfwFreeCallbacks(glfwWindow);
         glfwDestroyWindow(glfwWindow);
@@ -84,17 +83,17 @@ public class Window {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 
-        glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
-        if (glfwWindow == NULL) throw new IllegalStateException("Failed to create GLFW window!");
+        this.glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
+        if (this.glfwWindow == NULL) throw new IllegalStateException("Failed to create GLFW window!");
 
         glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePosCallback);
-        logger.info("Loaded CursorPositionCallback!");
+        this.logger.info("Loaded CursorPositionCallback!");
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
-        logger.info("Loaded MouseButtonCallback!");
+        this.logger.info("Loaded MouseButtonCallback!");
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
-        logger.info("Loaded ScrollCallback!");
+        this.logger.info("Loaded ScrollCallback!");
         glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
-        logger.info("Loaded KeyCallback!");
+        this.logger.info("Loaded KeyCallback!");
 
         glfwMakeContextCurrent(glfwWindow);
         glfwSwapInterval(1);
@@ -105,35 +104,35 @@ public class Window {
     }
 
     public void loop() {
-        float beginTime = Time.getTime();
+        var beginTime = (float) glfwGetTime();
         float endTime;
-        float dt = -1.0f;
+        var dt = -1.0f;
         while (!glfwWindowShouldClose(glfwWindow)) {
             glfwPollEvents();
             glClearColor(r, g, b, a);
             glClear(GL_COLOR_BUFFER_BIT);
 
             if (dt >= 0) {
-                currentScene.update(dt);
+                this.currentScene.update(dt);
             }
 
 
             glfwSwapBuffers(glfwWindow);
-            endTime = Time.getTime();
+            endTime = (float) glfwGetTime();
             dt = endTime - beginTime;
             beginTime = endTime;
         }
     }
 
     public Vector2i getSize() {
-        return new Vector2i(width, height);
+        return new Vector2i(this.width, this.height);
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public Logger getLogger() {
-        return logger;
+        return this.logger;
     }
 }

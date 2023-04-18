@@ -1,11 +1,9 @@
 package com.entisy.gameengine.scene.scenes;
 
 import com.entisy.gameengine.component.components.SpriteRenderer;
-import com.entisy.gameengine.scene.Scene;
 import com.entisy.gameengine.content.player.PlayerController;
-import com.entisy.gameengine.util.Camera;
-import com.entisy.gameengine.util.GameObject;
-import com.entisy.gameengine.util.Transform;
+import com.entisy.gameengine.scene.Scene;
+import com.entisy.gameengine.util.*;
 
 public class LevelEditorScene extends Scene {
     public LevelEditorScene() {
@@ -13,29 +11,23 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void init() {
-        camera = new Camera(0, 0, 0);
-        int xOffset = 10;
-        int yOffset = 10;
+        this.camera = new Camera(0, 0, 0);
 
-        float totalWidth = (float)(600 - xOffset * 2);
-        float totalHeight = (float)(300 - yOffset * 2);
-        float sizeX = totalWidth / 100f;
-        float sizeY = totalHeight / 100f;
+        var player = new GameObject("Player", new Transform(100, 100, 64));
+        player.addComponent(new SpriteRenderer(AssetPool.getTexture(new ResourceLocation("player"))));
+        this.addGameObjectToScene(player);
 
-        for (int x = 0; x < 100; x++) {
-            for (int y = 0; y < 100; y++) {
-                float posX = xOffset + (x * sizeX);
-                float posY = yOffset + (y * sizeY);
+        loadResources();
+    }
 
-                var gameObject = new GameObject(String.format("Obj %s,%s", x, y), new Transform(posX, posY, sizeX, sizeY));
-                gameObject.addComponent(new SpriteRenderer(posX / totalWidth, posY / totalHeight, 1, 1));
-                addGameObjectToScene(gameObject);
-            }
-        }
+    private void loadResources() {
+        AssetPool.getShader(ResourceLocation.shader("main"));
     }
 
     @Override
     public void update(float dt) {
+        PlayerController.get().update(150, camera, dt);
+
         for (var gameObject : gameObjects) {
             gameObject.update(dt);
         }

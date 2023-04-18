@@ -14,11 +14,11 @@ public class ResourceLocation {
     }
 
     public String getNamespace() {
-        return namespace;
+        return this.namespace;
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getPath() {
@@ -26,11 +26,11 @@ public class ResourceLocation {
     }
 
     public String pointsToImage() {
-        return String.format("src/main/resources/%s.png", this.id);
+        return String.format("src/main/resources/sprites/%s.png", this.id);
     }
 
     public String pointsToShader() {
-        return String.format("src/main/resources/%s.glsl", this.id);
+        return String.format("src/main/resources/shader/%s.glsl", this.id);
     }
 
     public String pointsTo() {

@@ -21,7 +21,7 @@ public class GameObject {
     }
 
     public <T extends Component> T getComponent(Class<T> clazz) {
-        for (Component component : components) {
+        for (var component : components) {
             if (clazz.isAssignableFrom(component.getClass())) {
                 try {
                     return clazz.cast(component);
@@ -36,9 +36,9 @@ public class GameObject {
     }
 
     public <T extends Component> void removeComponent(Class<T> clazz) {
-        for (var i = 0; i < components.size(); i++) {
-            if (clazz.isAssignableFrom(components.get(i).getClass())) {
-                components.remove(i);
+        for (var i = 0; i < this.components.size(); i++) {
+            if (clazz.isAssignableFrom(this.components.get(i).getClass())) {
+                this.components.remove(i);
                 return;
             }
         };
@@ -50,7 +50,7 @@ public class GameObject {
     }
 
     public void update(float dt) {
-        for (Component component : components) {
+        for (var component : components) {
             component.update(dt);
         }
     }

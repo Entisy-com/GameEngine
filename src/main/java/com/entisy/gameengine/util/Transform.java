@@ -8,15 +8,19 @@ public class Transform {
     public Vector3f position;
 
     public Transform() {
-        init(0, 0, 0, 0);
+        this(0, 0, 0, 0);
     }
 
     public Transform(float posX, float posY) {
-        init(posX, posY, 0, 0);
+        this(posX, posY, 0, 0);
+    }
+
+    public Transform(float posX, float posY, float scale) {
+        this(posX, posY, scale, scale);
     }
 
     public Transform(float posX, float posY, float scaleX, float scaleY) {
-        init(posX, posY, scaleX, scaleY);
+        this.init(posX, posY, scaleX, scaleY);
     }
 
     public void init(float posX, float posY, float scaleX, float scaleY) {
